@@ -30,14 +30,21 @@ public class UserTest {
     public void name() {
         repository.save(new User(1L, "John", "Snow"));
 
-        assertThat(repository.findAll()).containsExactly(new User(1L, "John", "Snow"));
+        assertThat(repository.findAll()).contains(new User(1L, "John", "Snow"));
     }
 
     @Test
     public void find_by() {
         repository.save(asList(new User(1L, "John", "Snow"), new User(2L, "Ed", "Stark")));
 
-        assertThat(repository.findByFirstname("John")).containsExactly(new User(1L, "John", "Snow"));
+        assertThat(repository.findByFirstname("John")).containsOnly(new User(1L, "John", "Snow"));
+    }
+
+    @Test
+    public void find_by_ends_with() {
+        repository.save(asList(new User(1L, "John", "Snow"), new User(2L, "Ed", "Stark")));
+
+        assertThat(repository.findByFirstnameEndsWith("ohn")).containsOnly(new User(1L, "John", "Snow"));
     }
 
     @Configuration
