@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SampleController {
 
+    Messenger messenger = new HelloMessenger();
+
     @RequestMapping("/")
     public String index() {
-        return "Greetings from Sample Application!";
+        return messenger.compose();
     }
 
 }
