@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HelloMessenger implements Messenger {
     @Override
-    public String compose() {
-        return "Greetings from Sample Application!";
+    public Message compose() {
+        return new Message("me@invalid", "you@invalid", "Greetings from Sample Application!");
     }
 }

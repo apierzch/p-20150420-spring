@@ -1,10 +1,12 @@
 package hello;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RestController
+@Controller
+@RequestMapping()
 public class SampleController {
 
     Messenger messenger;
@@ -15,7 +17,7 @@ public class SampleController {
     }
 
     @RequestMapping("/")
-    public String index() {
+    public @ResponseBody Message index() {
         return messenger.compose();
     }
 
