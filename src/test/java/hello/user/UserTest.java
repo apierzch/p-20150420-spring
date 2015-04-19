@@ -1,7 +1,10 @@
 package hello.user;
 
+import static java.util.Arrays.*;
 import static org.assertj.core.api.Assertions.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -20,11 +23,21 @@ public class UserTest {
     @Autowired
     UserRepository repository;
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Test
     public void name() {
         repository.save(new User(1L, "John", "Snow"));
 
         assertThat(repository.findAll()).containsExactly(new User(1L, "John", "Snow"));
+    }
+
+    @Test
+    public void find_by() {
+        repository.save(asList(new User(1L, "John", "Snow"), new User(2L, "Ed", "Stark")));
+
+        assertThat(repository.findByFirstname("John")).containsExactly(new User(1L, "John", "Snow"));
     }
 
     @Configuration
